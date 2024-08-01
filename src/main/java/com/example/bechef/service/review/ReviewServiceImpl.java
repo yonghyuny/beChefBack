@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +66,12 @@ public class ReviewServiceImpl implements ReviewService{
         newReview.setStoreId(storeId);
         newReview.setComment(comment);
         newReview.setReviewRating(rating);
-        newReview.setReviewDate(LocalDateTime.now());
+
+        // 현재 시간을 Asia/Seoul 시간대로 변환
+        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime seoulTime = now.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+        newReview.setReviewDate(seoulTime.toLocalDateTime());
+
         return reviewRepository.save(newReview);
     }
 
