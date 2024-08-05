@@ -44,8 +44,8 @@ public class SecurityConfig {
                                 "/api/info/update_store_rating/**",
                                 "/api/info/average_rating/**",
                                 "/api/info/review_delete/**",
-                                "/api/info/review_update/**",
-                                "/api/info/update_store_rating/**"
+                                "/api/info/review_update/**"
+
                         ).permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/info/**").hasAnyRole("ADMIN", "USER")
