@@ -18,8 +18,11 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     // StoreId를 사용하여 리뷰를 찾는 메서드
     List<Review> findByStoreId(int storeId);
 
+
+
     //리뷰 DB에 넣기위해 해당 데이터 가져오기
     List<Review> findByMemberIdxAndStoreId(int memberIdx, int storeId);
+
 
     //storeId 에 해당하는 리뷰 테이블의 별점 모두가져오기
     @Query("SELECT r.reviewRating FROM Review r WHERE r.storeId = :storeId")

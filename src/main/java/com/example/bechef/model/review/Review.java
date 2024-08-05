@@ -35,5 +35,6 @@ public class Review {
     @Column(name = "review_date")
     private LocalDateTime reviewDate;
 
-
+//    @Transient
+//    private String reviewDateFormatted;
 }

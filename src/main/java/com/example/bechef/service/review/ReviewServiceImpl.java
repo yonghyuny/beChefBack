@@ -25,7 +25,6 @@ public class ReviewServiceImpl implements ReviewService{
     @Autowired
     private StoreRepository storeRepository;
 
-    // 마이페이지 리뷰리스트  불러오기
     @Override
     public List<ReviewDTO> getUserReviews(int memberIdx) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -38,6 +37,7 @@ public class ReviewServiceImpl implements ReviewService{
                     reviewDTO.setReviewDate(review.getReviewDate());
                     reviewDTO.setMemberIdx(review.getMemberIdx());
                     reviewDTO.setStoreId(review.getStoreId());
+
 
 
                     Store store = storeRepository.findById(review.getStoreId()).orElse(null);
@@ -64,8 +64,7 @@ public class ReviewServiceImpl implements ReviewService{
         newReview.setStoreId(storeId);
         newReview.setComment(comment);
         newReview.setReviewRating(rating);
-        // 현재 시간에 +9 시간 더하기
-        newReview.setReviewDate(LocalDateTime.now().plusHours(9));
+        newReview.setReviewDate(LocalDateTime.now());
         return reviewRepository.save(newReview);
     }
 
@@ -86,9 +85,6 @@ public class ReviewServiceImpl implements ReviewService{
             Review review = optionalReview.get();
             review.setComment(comment);
             review.setReviewRating(rating);
-
-            // 현재 시간에 +9 시간 더하기
-            review.setReviewDate(LocalDateTime.now().plusHours(9));
             Review updatedReview = reviewRepository.save(review);
             System.out.println("Updated review: " + updatedReview);
             return updatedReview;
